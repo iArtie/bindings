@@ -824,6 +824,7 @@ enum class DialogAnimationType {
     FromLeft = 2,
     FromRight = 3,
     FromTop = 4,
+    FromBottom = 5
     // a 5th type is defined which acts exactly the same as FromTop
 };
 
