@@ -12748,7 +12748,14 @@ class LevelOptionsLayer2 : LevelOptionsLayer {
 [[link(android)]]
 class LevelPage : cocos2d::CCLayer, DialogDelegate {
     // virtual ~LevelPage();
-    LevelPage() {}
+    LevelPage() {
+       m_isBusy = false;
+       m_level = nullptr;
+       m_levelMenu = nullptr;
+       m_levelDisplaySize = cocos2d::CCSizeZero;
+       m_coinObject = nullptr;
+       m_secretDoor = nullptr;
+    }
 
     static LevelPage* create(GJGameLevel* level) = win inline, imac 0x41fda0, m1 0x39b290 {
         auto ret = new LevelPage();
