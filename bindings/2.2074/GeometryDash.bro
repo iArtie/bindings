@@ -9110,7 +9110,7 @@ class GJBaseGameLayer : cocos2d::CCLayer, TriggerEffectDelegate {
     TodoReturn flipFinished() = ios 0x2036ac;
     void flipGravity(PlayerObject*, bool, bool) = ios 0x1e7c68, win 0x20d640, imac 0x114040, m1 0xf3874;
     TodoReturn flipObjects();
-    TodoReturn gameEventToString(GJGameEvent);
+    static gd::string gameEventToString(GJGameEvent) = win 0x22cfd0;
     void gameEventTriggered(GJGameEvent, int, int) = ios 0x1e5c54, win 0x22c8a0, imac 0x110ea0, m1 0xf0ae8;
     int generateEnterEasingBuffer(int, float) = win 0x209710;
     void generateEnterEasingBuffers(EnterEffectObject*);
