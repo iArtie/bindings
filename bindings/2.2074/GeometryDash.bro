@@ -8877,7 +8877,7 @@ class GJAccountSettingsLayer : FLAlertLayer, TextInputDelegate {
         m_commentSettings = nullptr;
     }
 
-    static GJAccountSettingsLayer* create(int a1) = win inline, imac 0x28d2c0, m1 0x235cbc {
+    static GJAccountSettingsLayer* create(int a1) = ios 0x2D57B8, win inline, imac 0x28d2c0, m1 0x235cbc {
         GJAccountSettingsLayer* pRet = new GJAccountSettingsLayer();
         if (pRet && pRet->init(a1)) {
             pRet->autorelease();
