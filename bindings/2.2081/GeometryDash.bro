@@ -551,7 +551,7 @@ class AppDelegate : cocos2d::CCApplication, cocos2d::CCSceneDelegate {
     virtual void applicationWillBecomeActive() = m1 0x57c080;
     virtual void applicationWillResignActive();
     virtual void trySaveGame(bool force) = win 0x83500, imac 0x65c750, m1 0x57c534;
-    virtual void willSwitchToScene(cocos2d::CCScene* scene) = m1 0x57c610;
+    virtual void willSwitchToScene(cocos2d::CCScene* scene) = win 0x825E0, m1 0x57c610;
 
     float bgScale() = win inline, m1 0x57c05c;
     void checkSound() = win inline;
