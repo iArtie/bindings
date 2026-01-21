@@ -1317,9 +1317,9 @@ class CCMenuItemToggler : cocos2d::CCMenuItem {
     static CCMenuItemToggler* createWithSize(const char* spr1, const char* spr2, cocos2d::CCObject* target, cocos2d::SEL_MenuHandler callback, float scale);
     static CCMenuItemToggler* createWithStandardSprites(cocos2d::CCObject* target, cocos2d::SEL_MenuHandler callback, float scale);
 
-    virtual void activate();
-    virtual void selected();
-    virtual void unselected();
+    virtual void activate() = win 0x45500;
+    virtual void selected() = win 0x454B0;
+    virtual void unselected() = win 0x45550;
     virtual void setEnabled(bool enabled) = win 0x455a0, m1 0x4d650;
 
     CCMenuItemSpriteExtra* activeItem() = win inline, imac 0x59e30;
@@ -4009,7 +4009,7 @@ class EditTriggersPopup : SetupTriggerPopup {
 [[link(android)]]
 class EffectGameObject : EnhancedGameObject {
     // virtual ~EffectGameObject();
-    EffectGameObject() = imac 0x1f3fa0, m1 0x1a2200;
+    EffectGameObject() = win 0x494720, imac 0x1f3fa0, m1 0x1a2200;
 
     static EffectGameObject* create(char const* frame) = win inline, m1 0x172940;
 
@@ -4825,12 +4825,12 @@ class FLAlertLayer : cocos2d::CCLayerColor {
 
     virtual void onEnter() = m1 0x400970;
     virtual bool ccTouchBegan(cocos2d::CCTouch* touch, cocos2d::CCEvent* event) = win 0x52a70;
-    virtual void ccTouchMoved(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
+    virtual void ccTouchMoved(cocos2d::CCTouch* touch, cocos2d::CCEvent* event) = win 0x52B80;
     virtual void ccTouchEnded(cocos2d::CCTouch* touch, cocos2d::CCEvent* event) = win 0x52b10, m1 0x4005a0;
-    virtual void ccTouchCancelled(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
+    virtual void ccTouchCancelled(cocos2d::CCTouch* touch, cocos2d::CCEvent* event) = win 0x52BC0;
     virtual void registerWithTouchDispatcher() = win 0x52dd0, m1 0x400938;
     virtual void keyBackClicked() = win 0x528f0, imac 0x49c130, m1 0x400328;
-    virtual void keyDown(cocos2d::enumKeyCodes key, double timestamp);
+    virtual void keyDown(cocos2d::enumKeyCodes key, double timestamp) = win 0x52870;
     virtual void show() = win 0x52c00, imac 0x49c520;
 
     void incrementForcePrio() = win inline;
@@ -5312,7 +5312,7 @@ class GameLevelManager : cocos2d::CCNode {
     static GameLevelManager* get();
     static cocos2d::CCDictionary* responseToDict(gd::string response, bool colon) = win 0x16ab90, m1 0x484834;
     // virtual ~GameLevelManager();
-    static GameLevelManager* sharedState();
+    static GameLevelManager* sharedState() = win 0x140280;
 
     virtual bool init() = win 0x144290, m1 0x480154;
 
@@ -19868,7 +19868,7 @@ class TouchToggleAction {
 [[link(android)]]
 class TransformTriggerGameObject : EffectGameObject {
     // virtual ~TransformTriggerGameObject();
-    TransformTriggerGameObject();
+    // TransformTriggerGameObject();
 
     static TransformTriggerGameObject* create(char const* frame) = win inline, m1 0x18d044;
 
