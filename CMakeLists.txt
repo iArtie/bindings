@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.21 FATAL_ERROR)
 
 project(GeodeBindings VERSION 1.0.0)
 
+set(SKIP_BUILDING_CODEGEN ON CACHE BOOL "Skip building codegen" FORCE)
+
 if (NOT DEFINED GEODE_TARGET_PLATFORM)
 	message(FATAL_ERROR "GEODE_TARGET_PLATFORM is not defined.")
 endif()
@@ -54,54 +56,6 @@ function(geode_download_codegen url output_path)
 		set(SKIP_BUILDING_CODEGEN OFF PARENT_SCOPE)
 	endif()
 endfunction()
-
-if (NOT DEFINED SKIP_BUILDING_CODEGEN)
-	if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
-		set(GEODE_CODEGEN_DOWNLOAD_FILE_NAME geode-codegen-win.exe)
-		set(GEODE_CODEGEN_TARGET_FILE_NAME Codegen.exe)
-	elseif (CMAKE_HOST_SYSTEM_NAME STREQUAL "Linux")
-		set(GEODE_CODEGEN_DOWNLOAD_FILE_NAME geode-codegen-linux)
-		set(GEODE_CODEGEN_TARGET_FILE_NAME Codegen)
-	elseif (CMAKE_HOST_SYSTEM_NAME STREQUAL "Darwin")
-		set(GEODE_CODEGEN_DOWNLOAD_FILE_NAME geode-codegen-mac)
-		set(GEODE_CODEGEN_TARGET_FILE_NAME Codegen)
-	else()
-		unset(GEODE_CODEGEN_DOWNLOAD_FILE_NAME)
-	endif()
-
-	if (DEFINED GEODE_CODEGEN_DOWNLOAD_FILE_NAME)
-		# check if it's already been downloaded, only redownload if over a day old
-		set(GEODE_CODEGEN_BINARY_PATH ${GEODE_CODEGEN_BINARY_OUT}/${GEODE_CODEGEN_TARGET_FILE_NAME})
-
-		if (EXISTS ${GEODE_CODEGEN_BINARY_PATH})
-			file(TIMESTAMP ${GEODE_CODEGEN_BINARY_PATH} GEODE_CODEGEN_FILE_LAST_MODIFIED "%s" UTC)
-			string(TIMESTAMP GEODE_CODEGEN_CURRENT_TIME "%s" UTC)
-			math(EXPR GEODE_CODEGEN_FILE_AGE "${GEODE_CODEGEN_CURRENT_TIME} - ${GEODE_CODEGEN_FILE_LAST_MODIFIED}")
-		else()
-			math(EXPR GEODE_CODEGEN_FILE_AGE "${GEODE_CODEGEN_MAX_AGE}+1")
-		endif()
-
-		message(VERBOSE "Codegen file age: ${GEODE_CODEGEN_FILE_AGE}s / max age: ${GEODE_CODEGEN_MAX_AGE}s")
-
-		if (GEODE_CODEGEN_FILE_AGE LESS GEODE_CODEGEN_MAX_AGE)
-			message(STATUS "Using cached Codegen")
-			set(SKIP_BUILDING_CODEGEN ON)
-		else()
-			message(STATUS "Downloading Codegen")
-			message(NOTICE "Set SKIP_BUILDING_CODEGEN to OFF to force codegen to build locally.")
-
-			file(MAKE_DIRECTORY ${GEODE_CODEGEN_BINARY_OUT})
-			geode_download_codegen(
-				https://github.com/geode-sdk/bindings/releases/download/codegen/${GEODE_CODEGEN_DOWNLOAD_FILE_NAME}
-				${GEODE_CODEGEN_BINARY_PATH}
-			)
-		endif()
-	else()
-		set(SKIP_BUILDING_CODEGEN OFF)
-	endif()
-	unset(GEODE_CODEGEN_DOWNLOAD_FILE_NAME)
-	unset(GEODE_CODEGEN_TARGET_FILE_NAME)
-endif()
 
 if (NOT SKIP_BUILDING_CODEGEN)
 	file(MAKE_DIRECTORY ${GEODE_CODEGEN_BINARY_DIR})
@@ -185,7 +139,6 @@ endif()
 
 file(GLOB GEODE_INLINE_SOURCES ${GEODE_BINDINGS_PATH}/inline/*.cpp)
 file(GLOB GEODE_GENERATED_SOURCES ${GEODE_CODEGEN_PATH}/Geode/source/*.cpp)
-
 
 add_library(${PROJECT_NAME} ${GEODE_CODEGEN_PATH}/Geode/GeneratedSource.cpp ${GEODE_INLINE_SOURCES} ${GEODE_GENERATED_SOURCES})
 target_include_directories(${PROJECT_NAME} ${GEODE_INCLUDE_SYSTEM_SPECIFIER} PUBLIC
