@@ -5402,7 +5402,9 @@ class cocos2d::extension::CCControlButton : cocos2d::extension::CCControl {
 
 [[link(win, android)]]
 class cocos2d::extension::CCControlColourPicker : cocos2d::extension::CCControl {
+    [[missing(win,android, ios)]]
     CCControlColourPicker();
+    [[missing(win,android, ios)]]
     virtual ~CCControlColourPicker();
 
     static cocos2d::extension::CCControlColourPicker* colourPicker();
