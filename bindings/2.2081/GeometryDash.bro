@@ -4816,7 +4816,7 @@ class FindObjectPopup : SetIDPopup {
 [[link(android)]]
 class FLAlertLayer : cocos2d::CCLayerColor {
     FLAlertLayer() = win 0x51720;
-    ~FLAlertLayer();
+    virtual ~FLAlertLayer() = win inline;
 
     static FLAlertLayer* create(char const* title, const gd::string& desc, char const* btn);
     static FLAlertLayer* create(FLAlertLayerProtocol* delegate, char const* title, gd::string desc, char const* btn1, char const* btn2);
