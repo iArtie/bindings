@@ -1,5 +1,14 @@
 #include <Geode/Geode.hpp>
 
+GameLevelManager* GameLevelManager::sharedState() {
+    auto** instancePtr = reinterpret_cast<GameLevelManager**>(geode::base::get() + 0x6c2ec0);
+    if (!*instancePtr) {
+        *instancePtr = new GameLevelManager();
+        (*instancePtr)->init();
+    }
+    return *instancePtr;
+}
+
 GameLevelManager* GameLevelManager::get() {
     return GameLevelManager::sharedState();
 }
